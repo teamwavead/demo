@@ -71,7 +71,22 @@ var backgroundRemovalCanvasElement = null;
               function configError(statusText, errorData) {
                 console.log((errorData != null) ? JSON.stringify(errorData) : statusText);
             }
+// Determine if the specified object has any properties or not
+            function isEmptyObject(obj) {
+                if (obj == null) {
+                    return true;
+                }
 
+                var numProperties = 0;
+
+                for (var prop in obj) {
+                    if (obj.hasOwnProperty(prop)) {
+                        ++numProperties;
+                    }
+                }
+
+                return numProperties <= 0;
+            }
 
   sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
                 if (isConnected) {
