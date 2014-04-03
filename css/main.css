@@ -1,0 +1,21 @@
+div, body, html {
+  height: 100%;
+  width: 100%;
+  padding:0px;
+}
+
+.container {
+	width:100%;
+	height: 98%;
+	float:left;
+}
+
+#log-wrapper {
+	float: right;
+	width: 0%;
+	height: 98%;
+}
+
+#log {
+	display:overflow;
+}

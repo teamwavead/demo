@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link href="css/animation.css" rel="stylesheet" type="text/css" media="screen">
+<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/app.js"> </script>
+<link href="css/dashboard.css" rel="stylesheet" type="text/css" media="screen">
+
+</head>
+<body class="animation container" ng-app="demo"  ng-controller="MainCtrl">
+
+<style ng-bind-html-unsafe="style"></style>
+  
+
+<div id="container">
+  <div id="map" class="link" onclick="go(nextPage,'left')">
+    <div class="title">
+      <span>Map</span>
+    </div>
+    <div class="subtitle">
+      <span>Directions, places to visit, traffic conditions</span>
+    </div> 
+  </div>
+
+  <div id="game" class="link">
+    <div class="title">
+      <span>Games</span>
+    </div>
+    <div class="subtitle">
+      <span>Have fun, challenge your friends</span>
+    </div>
+  </div>
+
+  <div id="trailler" class="link">
+    <div class="title">
+      <span>Traillers</span>
+    </div>
+    <div class="subtitle">
+      <span>Watch scenes of the newest movies</span>
+    </div>
+  </div>
+
+  <div id="ad" class="link">
+    <div class="title">
+      <span>Ads</span>
+    </div>
+    <div class="subtitle">
+      <span>Check it out for promotions and cool products</span>
+    </div> 
+  </div>
+
+  <div id="wave">
+    <img src="img/wave.png">
+  </div>
+</div>
+
+  
+</body>
+</html>
