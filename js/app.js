@@ -68,6 +68,10 @@ var userViewerCanvasElement = null;
 var backgroundRemovalCanvasElement = null;
   Kinect.connect("http://localhost", 8181);
   engagedUser = null;
+              function configError(statusText, errorData) {
+                console.log((errorData != null) ? JSON.stringify(errorData) : statusText);
+            }
+
 
   sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
                 if (isConnected) {
@@ -194,9 +198,6 @@ var backgroundRemovalCanvasElement = null;
                 }
             }
 
-            function configError(statusText, errorData) {
-                console.log((errorData != null) ? JSON.stringify(errorData) : statusText);
-            }
 
 
 });
