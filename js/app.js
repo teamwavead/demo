@@ -194,6 +194,11 @@ var backgroundRemovalCanvasElement = null;
                 }
             }
 
+            function configError(statusText, errorData) {
+                console.log((errorData != null) ? JSON.stringify(errorData) : statusText);
+            }
+
+
 });
 
 
