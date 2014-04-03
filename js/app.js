@@ -57,6 +57,15 @@ app.controller('MainCtrl', function($scope, $rootScope, $location) {
 });
 
 $(document).ready(function () {
+  streamImageWidth = 640;
+var streamImageHeight = 480;
+var streamImageResolution = streamImageWidth.toString() + "x" + streamImageHeight.toString();
+
+var isSensorConnected = false;
+var engagedUser = null;
+var cursor = null;
+var userViewerCanvasElement = null;
+var backgroundRemovalCanvasElement = null;
   Kinect.connect("http://localhost", 8181);
   engagedUser = null;
 
