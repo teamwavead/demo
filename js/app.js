@@ -159,6 +159,41 @@ var backgroundRemovalCanvasElement = null;
                 resetHidePanelTimeout();
             };
 
+
+            // Show or hide the cursor
+            function setCursorVisibility(isVisible) {
+                if (cursor == null) {
+                    return;
+                }
+
+                if (isVisible) {
+                    cursor.show();
+                } else {
+                    cursor.hide();
+                }
+            }
+
+            // Show or hide a canvas element
+            function setCanvasVisibility(canvasElement, isVisible) {
+                if (canvasElement == null) {
+                    return;
+                }
+
+                var canvasQuery = $(canvasElement);
+
+                if (isVisible) {
+                    if (!canvasQuery.hasClass("showing")) {
+                        // Clear canvas before showing it
+                        var canvasContext = canvasElement.getContext("2d");
+                        canvasContext.clearRect(0, 0, streamImageWidth, streamImageHeight);
+                    }
+
+                    canvasQuery.addClass("showing");
+                } else {
+                    canvasQuery.removeClass("showing");
+                }
+            }
+
 });
 
 
