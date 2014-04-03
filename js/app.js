@@ -57,8 +57,9 @@ app.controller('MainCtrl', function($scope, $rootScope, $location) {
 });
 
 $(document).ready(function () {
+  engagedUser = null;
 
-  var sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
+  sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
                 if (isConnected) {
                     // Determine what is the engagement state upon connection
                     sensorToConfig.getConfig(function (data) {
@@ -147,7 +148,7 @@ $(document).ready(function () {
 
                 resetHidePanelTimeout();
             };
-            
+
 });
 
 
