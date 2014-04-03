@@ -1,5 +1,5 @@
 var app = angular.module('demo', []);
-sensor = ;
+sensor = "";
 app.config(function ($routeProvider) {
   $routeProvider
   .when('/map', {
