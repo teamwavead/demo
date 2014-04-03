@@ -101,7 +101,7 @@ var backgroundRemovalCanvasElement = null;
                     // if there is no engaged user or no sensor connected, we hide the choose background
                     // control panel after 10 seconds
                     hidePanelTimeoutId = setTimeout(function () {
-                        setChoosePanelVisibility(false);
+                        //setChoosePanelVisibility(false);
                         hidePanelTimeoutId = null;
                     }, 10000);
                 }
