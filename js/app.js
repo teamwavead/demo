@@ -57,7 +57,7 @@ app.controller('MainCtrl', function($scope, $rootScope, $location) {
 });
 
 $(document).ready(function () {
-  Kinect.connect("http://localhost", 8181);
+  Kinect.connect("localhost", 8181);
   engagedUser = null;
 
   sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
