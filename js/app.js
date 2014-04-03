@@ -87,6 +87,25 @@ var backgroundRemovalCanvasElement = null;
 
                 return numProperties <= 0;
             }
+            // property and function used to keep track of when the choose background control panel
+            // should be hidden after an inactivity period
+            var hidePanelTimeoutId = null;
+            function resetHidePanelTimeout() {
+                // First clear any previous timeout
+                if (hidePanelTimeoutId != null) {
+                    clearTimeout(hidePanelTimeoutId);
+                    hidePanelTimeoutId = null;
+                }
+
+                if (!isSensorConnected || (engagedUser == null)) {
+                    // if there is no engaged user or no sensor connected, we hide the choose background
+                    // control panel after 10 seconds
+                    hidePanelTimeoutId = setTimeout(function () {
+                        setChoosePanelVisibility(false);
+                        hidePanelTimeoutId = null;
+                    }, 10000);
+                }
+            }
 
   sensor = Kinect.sensor(Kinect.DEFAULT_SENSOR_NAME, function (sensorToConfig, isConnected) {
                 if (isConnected) {
