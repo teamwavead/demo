@@ -167,8 +167,9 @@ var backgroundRemovalCanvasElement = null;
                         }
                     } else {
                         setCursorVisibility(false);
-                        setCanvasVisibility(userViewerCanvasElement, false);
-                        setCanvasVisibility(backgroundRemovalCanvasElement, false);
+                        console.log("connected");
+                        // setCanvasVisibility(userViewerCanvasElement, false);
+                        // setCanvasVisibility(backgroundRemovalCanvasElement, false);
                     }
                 }
 
