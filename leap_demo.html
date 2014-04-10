@@ -1,0 +1,62 @@
+<html>
+<head>
+  <style>	
+	  #canvas{
+		  width:	500px;
+		  height:	250px;
+	  } 
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="move"></div>
+  <div id="hand"></div>
+  <div id="log"></div>
+  <div id="all"></div>
+  <script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+    function printObject(o) {
+	var out = $('<ul>');
+  	for (var p in o) {
+	 $('<li>').text(p + ': ' + o[p]).appendTo(out);
+  	}
+  	return out;
+    }
+ 	// Pulling the Canvas DOM element into Javascript
+    var canvas = document.getElementById('canvas');
+    var log = $("#log");
+    var move = $("#move");
+    var all = $("#all");
+    var hand = $("#hand");
+    myFrame = {};
+
+    // Setting up the context we want to use
+    var c =  canvas.getContext('2d');
+
+    // Creating our leap controller
+    var controller = new Leap.Controller({ enableGestures: true});
+
+   controller.on( 'animationFrame' , function( frame ) {
+    // Frame code goes here
+    log.html(frame.dump());
+    all.html(printObject(frame));
+    if(frame.hands.length >= 1){
+	hand.html(printObject(frame.hands[0].palmPosition))
+    }
+    if(frame.gestures.length >= 1){
+     var out = $('<ul>');
+     for( var i =  0; i < frame.gestures.length; i++){
+       $('<li>').text(frame.gestures[i]).appendTo(out);
+     }
+     move.html(out);
+    }
+  });
+	  
+	controller.connect();
+		
+  </script>
+	  
+</body>
+</html>
