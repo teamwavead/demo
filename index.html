@@ -6,14 +6,82 @@
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/animation.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
 <script type="text/javascript" src="js/angular.js"></script>
 <script type="text/javascript" src="js/app.js"> </script>
 
-<link href="css/dashboard.css" rel="stylesheet" type="text/css" media="screen">
+
+<!-- Menu -->
+<link href="css/menu.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/carousel/jquery.waterwheelCarousel.min.js"></script>
+<script type="text/javascript" src="js/timer/jquery.timer.js"></script>
+<script type="text/javascript">
+	var timerMenu, timerAd;
+	var ads = ['coke', 'iphone'];
+	var currentAd = 0;
+	
+	function clickedCenter(element) {
+		window.MY_SCOPE.$apply("go('"+$(element).attr('id')+"','right')");
+		showMenu(false);
+	}
+	
+	function movingToCenter(element) {
+		return false;
+	}
+	
+	$(document).ready(function() {
+		$("#carousel").waterwheelCarousel({
+			orientation : 'vertical',
+			separation: 150,
+			horizonOffset: 1,
+			sizeMultiplier: 0.6,
+			opacityMultiplier: 0.5,
+			clickedCenter: clickedCenter,
+			movingToCenter: movingToCenter
+		});
+		
+		/*timerMenu = $.timer(
+				function() {
+					showMenu(false);
+					timerMenu.stop();
+				},
+				5000,
+				false
+			);*/
+		
+		timerAd = $.timer(function() {
+				currentAd++;
+				var nextAd = ads[currentAd % ads.length];
+				window.MY_SCOPE.$apply("go('"+nextAd+"','right')");
+			}, 15000, true);
+		
+		showMenu(false);
+	});
+
+	
+	function showMenu(show){
+		if(show) {
+			$("#carousel").animate({ opacity: 1.0, "top": "-70%" }, "slow" );
+			var src = $('.ad').animate({opacity: 0.5}).attr("src").replace("sharp.jpg", "blur.jpg");
+            $('.ad').attr("src", src);
+			//timerMenu.play(true);
+            timerAd.stop();
+		} else {
+			$("#carousel").animate({ opacity: 0.0, "top": "-130%"}, "slow" );
+			var src = $('.ad').attr("src").replace("blur.jpg", "sharp.jpg");
+            $('.ad').attr("src", src).animate({opacity: 1.0});
+            //timerMenu.stop();
+            timerAd.play();
+		}
+	}
+	
+	
+</script>
+
+
 
 </head>
-<body class="animation container" ng-app="demo"  ng-controller="MainCtrl">
+<body class="animation container" ng-app="demo"  ng-controller="MainCtrl" ng-keypress="onKeyPress($event)" >
 
   <style ng-bind-html-unsafe="style"></style>
   
@@ -21,113 +89,49 @@
     <div ng-view ng-animate=" '{{direction}}-animate' "  >
     </div>
   </div>
+
+<div id="carousel">
+<img src="img/Color/weather.png" id="weather"/>
+<img src="img/Color/news.png" id="news"/>
+<img src="img/Color/deals.png" id="deals"/>
+<img src="img/Color/maps.png"  id="map"/>
+<img src="img/Color/games.png" id="games"/>
+<img src="img/Color/back.png" id="coke"/>
+</div>
+ 
+
+
+  <script type="text/ng-template" id="coke.html">
+   <div class="container" ng-mousedown="onMouseDown($event)">
+      <div class="masthead">
+			<img src="img/coca-cola2.jpg" style="height:100vh;border:0px;" class="ad" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
   
-  <!--<div id="log-wrapper">
-    <div id="log">
-      <span ng-repeat="mov in movs">{{mov.direction}} </span>
-    </div>
-  </div-->
+  <script type="text/ng-template" id="iphone.html">
+   <div class="container" ng-mousedown="onMouseDown($event)">
+      <div class="masthead">
+			<img src="img/iphone.jpg" style="height:100vh;border:0px;" class="ad" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
   
   <script type="text/ng-template" id="map.html">
    <div class="container">
       <div class="masthead">
-            <iframe src="http://maps.yahoo.com" height="100%" width="100%"/>
-
-        </div>
-   </div>
-  </script>
-          
-  <script type="text/ng-template" id="game.html">
-   <div class="container " >
-      <div class="masthead">
-            <iframe src="http://tetris.gdaws.co.uk" height="100%" width="100%"/>
+			<iframe src="http://maps.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
         </div>
    </div>
   </script>
   
-  <script type="text/ng-template" id="mac.html">
-   <div class="container " >
+  <script type="text/ng-template" id="weather.html">
+   <div class="container">
       <div class="masthead">
-<iframe height="100%" width="100%" frameborder="0" 
-scrolling="no" marginheight="0" marginwidth="0" 
-src="http://www.mcdonalds.com/us/en/home.html"></iframe>
+			<iframe src="http://weather.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
         </div>
    </div>
   </script>
-
-
-  <script type="text/ng-template" id="macys.html">
-   <div class="container " >
-      <div class="masthead">
-<iframe height="100%" width="100%" frameborder="0" 
-scrolling="no" marginheight="0" marginwidth="0" 
-src="http://www.macys.com"></iframe>
-        </div>
-   </div>
-  </script>
-
-  <script type="text/ng-template" id="trailler.html">
-   <div class="container " >
-      <div class="masthead">
-<iframe height="100%" width="100%" frameborder="0" 
-scrolling="no" marginheight="0" marginwidth="0" 
-src="http://movietrailers.apple.com/movies/paramount/transformers4/transformers-biggame_480p.mov?width=1200&height=800"></iframe>
-        </div>
-   </div>
-  </script>
-
-  <script type="text/ng-template" id="dashboard.html">
-   <div class="container border" >
-      <div class="masthead">
-        <div id="dashboard">
-          <div id="map" class="link" ng-click="go('map','right')">
-            <div class="title">
-              <span>Map</span>
-            </div>
-            <div class="subtitle-d">
-              <span>Directions, places to visit, traffic conditions</span>
-            </div> 
-          </div>
-
-          <div id="game" class="link" ng-click="go('game','right')">
-            <div class="title">
-              <span>Games</span>
-            </div>
-            <div class="subtitle-d">
-              <span>Have fun, challenge your friends</span>
-            </div>
-          </div>
-
-          <div id="trailler" class="link" ng-click="go('trailler','right')">
-            <div class="title">
-              <span>Traillers</span>
-            </div>
-            <div class="subtitle-d">
-              <span>Watch scenes of the newest movies</span>
-            </div>
-          </div>
-
-          <div id="ad" class="link" ng-click="go('ad','right')">
-            <div class="title">
-              <span>Ads</span>
-            </div>
-            <div class="subtitle-d">
-              <span>Check it out for promotions and cool products</span>
-            </div> 
-          </div>
-
-          <div id="wave">
-            <img src="img/wave.png">
-          </div>
-        </div>
-      </div>
-   </div>
-  </script>
-  
-  <button  class="btn display-button" ng-click="go(nextPage,'left')">Left</button>
-  <button  class="btn display-button" ng-click="go(nextPage,'right')">Right</button>
-  <button  class="btn display-button" ng-click="go('dashboard','top')">Top</button>
-  <button  class="btn display-button" ng-click="go('dashboard','bottom')">Down</button>
   
 </body>
 </html>

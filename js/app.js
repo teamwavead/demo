@@ -2,57 +2,66 @@ var app = angular.module('demo', []);
 
 app.config(function ($routeProvider) {
   $routeProvider
+  .when('/iphone', {
+  templateUrl:'iphone.html'
+  })
   .when('/map', {
   templateUrl:'map.html'
   })
-  .when('/ad', {
-    templateUrl:'mac.html'  
-  })
-  .when('/game', {
-    templateUrl:'game.html'  
-  })
-  .when('/trailler', {
-    templateUrl:'trailler.html'  
-  })
-  .when('/macys', {
-    templateUrl:'macys.html'  
+  .when('/weather', {
+  templateUrl:'weather.html'
   })
   .otherwise({
-    templateUrl:'dashboard.html'
+    templateUrl:'coke.html'
   });
 });
 
 app.controller('MainCtrl', function($scope, $rootScope, $location) {
+  window.MY_SCOPE = $scope;
   $scope.go = function(path,direction) {
-      if(direction == 'top' || direction == 'bottom') {
-        path = '/dashboard';
-      } else if(path=='ad') {
-        $scope.nextPage = '/macys';
-      } else if(path=='/macys') {
-        $scope.nextPage = 'ad';
-      } else {
-        $scope.nextPage = '/dashboard';
-      }
+	  //alert(path + ' ' + direction);
       $scope.direction = direction;
-      //$scope.addMov(direction);
       $location.path(path);
   };
-  $scope.movs = [];
   
-  /**var fb = new Firebase('https://boiling-fire-1817.firebaseio.com');
-  fb.on('value', function(snapshot) {
-    $scope.movs = [];
-    snapshot.forEach(function(childSnapshot) {
-      var childData = childSnapshot.val();
-      $scope.movs.push({direction:childData.direction});                       
-    });
-  });
-  
-  $scope.addMov = function (dir) {
-    $scope.movs.push({direction:dir});
-    fb.push({direction:dir});
+  $scope.onKeyPress = function ($event) {
+      var keyPressed = getKeyboardKeyPressed($event);
+      if (keyPressed == 38) {
+			showMenu(false);
+			return false;
+	  } else if (keyPressed == 40) {
+			showMenu(true);
+			return false;
+	  } else if (keyPressed == 37) {
+		  	showMenu(false);
+		  	goLeft('iphone');
+			return false;
+	  } else if (keyPressed == 39) {
+		  	showMenu(false);
+		  	goRight('coke');
+			return false;
+	  }
   };
-  **/
+  
+  var goLeft = function (page) {
+	  $scope.go(page, 'left');
+  };
+  
+  var goRight = function (page) {
+	  $scope.go(page, 'right');
+  };
+  
+  var getKeyboardKeyPressed = function (keyEvent)
+  {
+    return  keyEvent.keyCode;
+  };
+  
+  $scope.onMouseDown = function ($event) {
+	showMenu(true);
+	return false;
+	  
+  };
+  
   
 });
 

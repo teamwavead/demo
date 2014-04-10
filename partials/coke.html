@@ -1,0 +1,45 @@
+
+<link href="css/coke.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/menu.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/carousel/jquery.waterwheelCarousel.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#carousel").waterwheelCarousel({
+			orientation : 'vertical'
+		});
+	});
+
+	$(document).keydown(function(e) {
+		if (e.keyCode == 38) {
+			showMenu(false);
+			return false;
+		} else if (e.keyCode == 40) {
+			showMenu(true);
+			return false;
+		} else if (e.keyCode == 37) {
+			alert('left');
+			return false;
+		} else if (e.keyCode == 39) {
+			alert('right');
+			return false;
+		}
+	});
+	
+	function showMenu(bool){
+		if(bool) {
+			$("#carousel").slideDown();
+		} else {
+			$("#carousel").slideUp();
+		}
+	}
+</script>
+
+<div id="carousel">
+<img src="img/swipe.png" alt="Image 1" />
+<img src="img/swipe.png" alt="Image 2" />
+<img src="img/swipe.png" alt="Image 3" />
+<img src="img/swipe.png" alt="Image 4" />
+<img src="img/swipe.png" alt="Image 5" />
+</div>
