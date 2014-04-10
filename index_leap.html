@@ -21,6 +21,8 @@
 <script type="text/javascript" src="js/carousel/jquery.waterwheelCarousel.min.js"></script>
 <script type="text/javascript" src="js/timer/jquery.timer.js"></script>
 <script type="text/javascript">
+//define the timeout period for the leap;
+	LEAP_TIMEOUT = 500
 	var timerMenu, timerAd;
 	var ads = ['coke', 'iphone'];
 	var currentAd = 0;
@@ -89,7 +91,7 @@
 					window.MY_SCOPE.$apply("go('"+nextAd+"','"+text+"')");
 					console.log(text);
 					done += 1;
-					window.setTimeout(function(){done = 0;console.log("OK")},500)
+					window.setTimeout(function(){done = 0;console.log("OK")},LEAP_TIMEOUT)
 				}
 				
 	            }
