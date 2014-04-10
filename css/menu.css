@@ -10,3 +10,19 @@
   display: hidden; /* hide images until carousel prepares them */
   cursor: pointer; /* not needed if you wrap carousel items in links */
 }
+
+.menuSelected {
+  position: absolute;
+  left: 40%;
+  top: 30%;
+  width: 300px; 
+  height: 193px;
+  transition:width 1s, height 1s, left 1s, top 1s;
+}
+
+.menuSelected-expanded {
+	width: 100%;
+	left:0px;
+	top:0px;
+	height:100%;
+}
