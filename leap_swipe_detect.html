@@ -1,0 +1,106 @@
+<html>
+<head>
+   <style>
+  
+    #canvas{
+      width:  100%;
+      height: 100%;
+    }
+    
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>
+  $( document ).ready(function() {
+  // Get the canvas DOM element 
+    var count = 0;
+    var actual = 0;
+    var previous = 0;
+    var canvas = document.getElementById('canvas');
+  // Making sure we have the proper aspect ratio for our canvas
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    var c =  canvas.getContext('2d');
+    var myCanvasWriter = canvasWriter(c,canvas)
+    myFrame = {};
+    var controller = new Leap.Controller({ enableGestures: true});
+    controller.on( 'animationFrame' , function( frame ) {
+    // Frame code goes here
+    if(frame.hands.length > 0)
+    {
+        var hand = frame.hands[0];
+        actual = hand.id;
+        // var position = hand.palmPosition;
+        // var velocity = hand.palmVelocity;
+        // var direction = hand.direction;
+    }else{
+      delete window.text;
+      myCanvasWriter.incomingText("OK");
+    }
+    
+    if(frame.gestures.length >= 1){
+      for( var i =  0; i < frame.gestures.length; i++){
+          if(typeof frame.gestures[i].direction !== "undefined" ){
+            if(frame.gestures[i].type === "swipe"){
+              actual = frame.gestures[i].direction[0];
+              var treshold = 0.3;
+              console.log(actual)
+              text = actual > treshold ? "left" : "unknown";
+              text = actual <- treshold ? "right" : text;
+              myCanvasWriter.incomingText(text);
+              count += 1;
+            }
+          }
+        }
+      }
+
+      //if no event where seen, just say hi if their is a new hand
+      if(previous !== actual && typeof text === "undefined"){
+        myCanvasWriter.incomingText("Hi !");
+        previous = actual;
+      }
+
+      count = 0;
+    });
+	 
+	 controller.connect();
+   myCanvasWriter.incomingText("OK")
+});
+
+
+
+var canvasWriter = function(canvasContext,canvasObject){
+  var that = {};
+  var text = "OK";
+
+  that.incomingText = function(newText){
+    theText = typeof newText === "undefined" ? text : newText;
+    if(text !== theText){
+      text = theText;
+      writeCanvas();
+    }
+  }
+  var writeCanvas =function(){
+    canvasContext.clearRect(0, 0, canvasObject.width, canvasObject.height);
+    // Gets the number of fingers in each frame
+    // Defines the font shape and size
+    canvasContext.font = "300px Arial";
+
+    // Tells Canvas how to align text
+    canvasContext.textAlign = 'center';
+    canvasContext.textBaseline = 'middle';
+    // Tells Canvas to draw the The number of fingers,
+    // at the center of the canvas
+    canvasContext.fillText( text , canvasObject.width/2 , canvasObject.height/2 );
+  }
+
+  return that;
+}
+ 
+ </script>
+	  
+</body>
+</html>

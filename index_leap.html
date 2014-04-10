@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/animation.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="js/angular.js"></script>
+<script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+
+
+<script type="text/javascript" src="js/app.js"> </script>
+
+
+<!-- Menu -->
+<link href="css/menu.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="js/carousel/jquery.waterwheelCarousel.min.js"></script>
+<script type="text/javascript" src="js/timer/jquery.timer.js"></script>
+<script type="text/javascript">
+	var timerMenu, timerAd;
+	var ads = ['coke', 'iphone'];
+	var currentAd = 0;
+	
+	function clickedCenter(element) {
+		$(element).clone().removeAttr("style").addClass('menuSelected').
+			appendTo('body').toggleClass('menuSelected-expanded',1000).fadeOut(1000);	
+		
+		//alert(element);
+		
+		showMenu(false);
+		
+		//window.MY_SCOPE.$apply("go('"+$(element).attr('id')+"','right')");
+		
+	}
+	
+	function movingToCenter(element) {
+		return false;
+	}
+	
+	$(document).ready(function() {
+		$("#carousel").waterwheelCarousel({
+			orientation : 'vertical',
+			separation: 150,
+			horizonOffset: 1,
+			sizeMultiplier: 0.6,
+			opacityMultiplier: 0.5,
+			clickedCenter: clickedCenter,
+			movingToCenter: movingToCenter
+		});
+		
+		/*timerMenu = $.timer(
+				function() {
+					showMenu(false);
+					timerMenu.stop();
+				},
+				5000,
+				false
+			);*/
+		
+		timerAd = $.timer(function() {
+				currentAd++;
+				var nextAd = ads[currentAd % ads.length];
+				window.MY_SCOPE.$apply("go('"+nextAd+"','right')");
+			}, 1500000, true);
+		
+		showMenu(false);
+		//Leap Motion controler
+		var controller = new Leap.Controller({ enableGestures: true});
+		var done = 0;
+	    controller.on( 'animationFrame' , function( frame ) {
+	    // Frame code goes here
+	    if(frame.gestures.length >= 1){
+	      for( var i =  0; i < frame.gestures.length; i++){
+	          if(typeof frame.gestures[i].direction !== "undefined" ){
+	            if(frame.gestures[i].type === "swipe"){
+	              actual = frame.gestures[i].direction[0];
+	              var treshold = 0;
+	              text = actual > treshold ? "left" : "right";
+	              //text = actual <- treshold ? "right" : text;
+
+	              
+				if(done === 0 ){
+					currentAd++;
+					var nextAd = ads[currentAd % ads.length];
+					window.MY_SCOPE.$apply("go('"+nextAd+"','"+text+"')");
+					console.log(text);
+					done += 1;
+					window.setTimeout(function(){done = 0;console.log("OK")},500)
+				}
+				
+	            }
+	          }
+	        }
+	      }
+	    });
+	    //Get the action started with Leap
+		controller.connect();
+	});
+
+	
+	function showMenu(show){
+		if(show) {
+			$("#carousel").animate({ opacity: 1.0, "top": "-70%" }, "slow" );
+			var src = $('.ad').animate({opacity: 0.5}).attr("src").replace("sharp.jpg", "blur.jpg");
+            $('.ad').attr("src", src);
+			//timerMenu.play(true);
+            timerAd.stop();
+		} else {
+			$("#carousel").animate({ opacity: 0.0, "top": "-130%"}, "slow" );
+			var src = $('.ad').attr("src").replace("blur.jpg", "sharp.jpg");
+            $('.ad').attr("src", src).animate({opacity: 1.0});
+            //timerMenu.stop();
+            timerAd.play();
+		}
+	}
+	
+	
+</script>
+
+</head>
+<body class="animation container" ng-app="demo"  ng-controller="MainCtrl" ng-keypress="onKeyPress($event)" >
+
+  <style ng-bind-html-unsafe="style"></style>
+  
+  <div class="cube container">
+    <div ng-view ng-animate=" '{{direction}}-animate' "  >
+    </div>
+  </div>
+
+<div id="carousel">
+<img src="img/Color/weather.png" id="weather"/>
+<img src="img/Color/news.png" id="news"/>
+<img src="img/Color/deals.png" id="deals"/>
+<img src="img/Color/maps.png"  id="map"/>
+<img src="img/Color/games.png" id="games"/>
+<img src="img/Color/back.png" id="coke"/>
+</div>
+ 
+
+
+  <script type="text/ng-template" id="coke.html">
+   <div class="container" ng-mousedown="onMouseDown($event)">
+      <div class="masthead">
+			<img src="img/coca-cola2.jpg" style="height:100vh;border:0px;" class="ad" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
+  
+  <script type="text/ng-template" id="iphone.html">
+   <div class="container" ng-mousedown="onMouseDown($event)">
+      <div class="masthead">
+			<img src="img/iphone.jpg" style="height:100vh;border:0px;" class="ad" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
+  
+  <script type="text/ng-template" id="map.html">
+   <div class="container">
+      <div class="masthead">
+			<iframe src="http://maps.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
+  
+  <script type="text/ng-template" id="weather.html">
+   <div class="container">
+      <div class="masthead">
+			<iframe src="http://weather.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
+        </div>
+   </div>
+  </script>
+  
+</body>
+</html>
