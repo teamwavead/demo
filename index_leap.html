@@ -133,13 +133,13 @@
     </div>
   </div>
 
-<div id="carousel">
-<img src="img/Color/weather.png" id="weather"/>
+<div id="carousel" style="left:50%;margin-left:-150px;">
+<a href="index_leap.html#/weather"><img src="img/Color/weather.png" id="weather"/></a>
 <img src="img/Color/news.png" id="news"/>
 <img src="img/Color/deals.png" id="deals"/>
-<img src="img/Color/maps.png"  id="map"/>
+<a href="index_leap.html#/map"><img src="img/Color/maps.png"  id="map"/></a>
 <img src="img/Color/games.png" id="games"/>
-<img src="img/Color/back.png" id="coke"/>
+<a href="index_leap.html#/"><img src="img/Color/back.png" id="coke"/></a>
 </div>
  
 
@@ -171,7 +171,7 @@
   <script type="text/ng-template" id="weather.html">
    <div class="container">
       <div class="masthead">
-			<iframe src="http://weather.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
+			<img src="img/weatherapp.png" style="height:100vh;border:0px;" class="ad" ng-mousedown="onMouseDown($event)"/>
         </div>
    </div>
   </script>
