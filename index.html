@@ -29,11 +29,9 @@
 		$(element).clone().removeAttr("style").addClass('menuSelected').
 			appendTo('body').toggleClass('menuSelected-expanded',1000).fadeOut(1000);	
 		
-		//alert(element);
-		
 		showMenu(false);
 		
-		//window.MY_SCOPE.$apply("go('"+$(element).attr('id')+"','right')");
+		window.MY_SCOPE.$apply("go('"+$(element).attr('id')+"','right')");
 		
 	}
 	
@@ -138,7 +136,7 @@
   <script type="text/ng-template" id="weather.html">
    <div class="container">
       <div class="masthead">
-			<iframe src="http://weather.yahoo.com" height="100%" width="100%" ng-mousedown="onMouseDown($event)"/>
+			<img src="img/weatherapp.png" style="height:100vh;border:0px;">
         </div>
    </div>
   </script>

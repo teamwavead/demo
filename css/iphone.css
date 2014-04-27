@@ -1,0 +1,8 @@
+.iphone-sharp {
+	background-image:url('../img/iphone_ad_sharp.jpg');
+	height:100vh;
+}
+
+.iphone-blur {
+	background-image:url('../img/iphone_ad_blur.jpg');
+}

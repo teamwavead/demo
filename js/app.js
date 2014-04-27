@@ -34,11 +34,13 @@ app.controller('MainCtrl', function($scope, $rootScope, $location) {
 			return false;
 	  } else if (keyPressed == 37) {
 		  	showMenu(false);
-		  	goLeft('iphone');
-			return false;
+		  	currentAd = (currentAd+1)%ads.length;
+		  	goLeft(ads[currentAd]);
+		  	return false;
 	  } else if (keyPressed == 39) {
 		  	showMenu(false);
-		  	goRight('coke');
+		  	currentAd = (currentAd+1)%ads.length;
+		  	goRight(ads[currentAd]);
 			return false;
 	  }
   };
@@ -56,11 +58,6 @@ app.controller('MainCtrl', function($scope, $rootScope, $location) {
     return  keyEvent.keyCode;
   };
   
-  $scope.onMouseDown = function ($event) {
-	showMenu(true);
-	return false;
-	  
-  };
   
   
 });

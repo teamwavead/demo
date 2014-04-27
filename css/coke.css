@@ -1,11 +1,12 @@
-body, html {
-  height: 100%;
-  width: 100%;
-  padding:0px;
+.coke-sharp {
+	background-image:url('../img/coke_ad_sharp.jpg');
 }
 
-body {
-	background-image:url('../img/coke_ad_sharp.jpg');
+.coke-blur {
+	background-image:url('../img/coke_ad_blur.jpg');
+}
+
+.ad {
 	background-size: contain;
 	background-attachment:fixed;
 	background-repeat:no-repeat;
