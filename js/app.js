@@ -5,6 +5,9 @@ app.config(function ($routeProvider) {
   .when('/iphone', {
   templateUrl:'iphone.html'
   })
+  .when('/redcross', {
+  templateUrl:'redcross.html'
+  })
   .when('/map', {
   templateUrl:'map.html'
   })
