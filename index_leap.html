@@ -7,6 +7,7 @@
 <link href="css/animation.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/weather.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/deals.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/coke.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/iphone.css" rel="stylesheet" type="text/css" media="screen">
 <script type="text/javascript" src="js/angular.js"></script>
@@ -38,6 +39,9 @@
 		$('#'+ad_id).addClass(ad_id+"-blur").removeClass(ad_id+"-sharp");
 		if(clicked == 'weather') {
             $('#weather-panel').clone().addClass('clone').appendTo('.masthead').fadeIn(2500);
+		};
+		if(clicked == 'deals') {
+            $('#deals-panel').clone().addClass('clone').appendTo('.masthead').fadeIn(2500);
 		}
 		showMenu(false);
 		
@@ -152,12 +156,12 @@
 		<img src="img/Color/deals.png" id="deals" /> 
 		<img src="img/Color/maps.png" id="map" /> 
 		<img src="img/Color/games.png" id="games" /> 
-		<img src="img/Color/back.png" id="coke" /></a>
+		<img src="img/Color/back.png" id="coke" />
 	</div>
 
 
 
-	<script type="text/ng-template" id="coke.html">
+  <script type="text/ng-template" id="coke.html">
    <div class="container" ng-mousedown="onMouseDown($event)">
       <div class="masthead coke-sharp ad" id="coke">
 	  </div>
@@ -181,48 +185,22 @@
 
 			
 	<div id="weather-panel" class="weather" style="display:none">
-		<div id="weather-city">Boston</div>
-		<div id="weather-temperature">25&deg;</div>
-		<div id="weather-icon"><img src="img/sun.png"></div>
-		<div id="weather-clothing"><img src="img/jacket.png"></div>
-		<div id="weather-forecasting">
-			<table>
-				<tr id="weather-forecasting-time">
-					<td>8am</td>
-					<td>9am</td>
-					<td>10am</td>
-					<td>11am</td>
-					<td>12pm</td>
-					<td>1pm</td>
-					<td>2pm</td>
-					<td>3pm</td>
-					<td>4pm</td>
-				</tr>
-				<tr id="weather-forecasting-icon">
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-					<td><img src="img/sun.png"></td>
-				</tr>
-				<tr id="weather-forecasting-temperature">
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-					<td>25&deg;</td>
-				</tr>
-			</table>
+		<div class="weather-container">
+			<img src="img/appscreens/weather/weather-07.png" class="weather-one">
+			<img src="img/appscreens/weather/weather-08.png" class="weather-two">
+			<img src="img/appscreens/weather/weather-09.png" class="weather-three">
+			<img src="img/appscreens/weather/weather-10.png" class="weather-four">
+			<img src="img/appscreens/weather/weather-11.png" class="weather-five">
 		</div>
-		<div id="back" onclick="back();"></div>
+	</div>
+
+	<div id="deals-panel" class="deals" style="display:none">
+		<div class="deals-container">
+			<img src="img/appscreens/deals/deals-12.png" class="deal-one">
+			<img src="img/appscreens/deals/deals-13.png" class="deal-two">
+			<img src="img/appscreens/deals/deals-14.png" class="deal-three">
+			<img src="img/appscreens/deals/deals-15.png" class="deal-four">
+		</div>
 	</div>
 
 

@@ -11,6 +11,9 @@ app.config(function ($routeProvider) {
   .when('/weather', {
   templateUrl:'weather.html'
   })
+  .when('/deals', {
+  templateUrl:'deals.html'
+  })
   .otherwise({
     templateUrl:'coke.html'
   });

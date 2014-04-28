@@ -8,7 +8,7 @@ body, html {
 .container {
 	height: 100%;
 	width: 100%;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	text-align: center 
 }
 
@@ -20,3 +20,22 @@ body, html {
 	font-family: wf_segoe-ui_normal, 'Segoe UI', Segoe, 'Segoe WP', Tahoma, Verdana, Arial, sans-serif;
 	color: black;
 }
+
+@font-face {
+  font-family: 'DinLight';
+  src: url('dinlight.woff') format('woff'),
+       url('dinlight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DinBold';
+  src: url('dinbold.woff') format('woff'),
+       url('dinbold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DinBlack';
+  src: url('dinblack.woff') format('woff'),
+       url('dinblack.ttf') format('truetype');
+}
+
