@@ -25,7 +25,9 @@
 <script type="text/javascript" src="js/timer/jquery.timer.js"></script>
 <script type="text/javascript">
 //define the timeout period for the leap;
-	LEAP_TIMEOUT = 500
+	LEAP_TIMEOUT = 500;
+	//Value to discriminate the leap motion mouvement.
+	TRESHOLD = 0.3;
 	var timerMenu, timerAd;
 	var ads = ['coke', 'iphone', 'redcross'];
 	var currentAd = 0;
@@ -69,15 +71,7 @@
 			movingToCenter: movingToCenter
 		});
 		
-		/*timerMenu = $.timer(
-				function() {
-					showMenu(false);
-					timerMenu.stop();
-				},
-				5000,
-				false
-			);*/
-		
+
 		timerAd = $.timer(function() {
 				currentAd++;
 				var nextAd = ads[currentAd % ads.length];
@@ -92,21 +86,28 @@
 	    // Frame code goes here
 	    if(frame.gestures.length >= 1){
 	      for( var i =  0; i < frame.gestures.length; i++){
-	          if(typeof frame.gestures[i].direction !== "undefined" ){
+	          if(typeof frame.gestures[i].direction !== "undefined" && done === 0 ){
 	            if(frame.gestures[i].type === "swipe"){
-	              actual = frame.gestures[i].direction[0];
-	              var treshold = 0;
-	              text = actual > treshold ? "left" : "right";
-	              //text = actual <- treshold ? "right" : text;
-
-	              
-				if(done === 0 ){
+	              text = mouvementSelect(frame.gestures[i].direction[0],"left","right",TRESHOLD);
+				if(text !== "unknown"){
 					currentAd++;
 					var nextAd = ads[currentAd % ads.length];
 					window.MY_SCOPE.$apply("go('"+nextAd+"','"+text+"')");
-					console.log(text);
 					done += 1;
-					window.setTimeout(function(){done = 0;console.log("OK")},LEAP_TIMEOUT)
+					window.setTimeout(function(){done = 0},LEAP_TIMEOUT);
+				}
+				else{
+					text = mouvementSelect(frame.gestures[i].direction[1],"top","down",TRESHOLD);
+					//add here the command to have the top and down command... 
+					console.log(text);
+
+
+
+					//
+					done += 1;
+					window.setTimeout(function(){done = 0},LEAP_TIMEOUT);
+
+
 				}
 				
 	            }
@@ -137,7 +138,11 @@
 		}
 	}
 	
-	
+mouvementSelect = function(direction,textPositive,textNegative,treshold){
+  var text = direction > treshold ? textPositive : "unknown";
+  text = direction <- treshold ? textNegative : text;
+  return text;
+}
 </script>
 
 </head>

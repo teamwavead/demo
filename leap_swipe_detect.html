@@ -45,13 +45,16 @@
       for( var i =  0; i < frame.gestures.length; i++){
           if(typeof frame.gestures[i].direction !== "undefined" ){
             if(frame.gestures[i].type === "swipe"){
-              actual = frame.gestures[i].direction[0];
               var treshold = 0.3;
-              console.log(actual)
-              text = actual > treshold ? "left" : "unknown";
-              text = actual <- treshold ? "right" : text;
-              myCanvasWriter.incomingText(text);
-              count += 1;
+              text = mouvementSelect(frame.gestures[i].direction[0],"left","right",treshold)
+              if(text !== "unknown"){
+                myCanvasWriter.incomingText(text);
+                count += 1;
+              }
+              else{
+                text = mouvementSelect(frame.gestures[i].direction[1],"top","down",treshold)
+                myCanvasWriter.incomingText(text);
+              }
             }
           }
         }
@@ -98,6 +101,12 @@ var canvasWriter = function(canvasContext,canvasObject){
   }
 
   return that;
+}
+
+mouvementSelect = function(direction,textPositive,textNegative,treshold){
+  var text = direction > treshold ? textPositive : "unknown";
+  text = direction <- treshold ? textNegative : text;
+  return text;
 }
  
  </script>
