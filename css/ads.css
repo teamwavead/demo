@@ -1,0 +1,31 @@
+.coke-sharp {
+	background-image:url('../img/coke_ad_sharp.jpg');
+}
+
+.coke-blur {
+	background-image:url('../img/coke_ad_blur.jpg');
+}
+
+
+.iphone-sharp {
+	background-image:url('../img/iphone_ad_sharp.jpg');
+}
+
+.iphone-blur {
+	background-image:url('../img/iphone_ad_blur.jpg');
+}
+
+.redcross-sharp {
+	background-image:url('../img/redcross_ad_sharp.jpg');
+}
+
+.redcross-blur {
+	background-image:url('../img/redcross_ad_blur.jpg');
+}
+
+.ad {
+	background-size: cover;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-position:center;
+}

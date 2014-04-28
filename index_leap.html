@@ -8,8 +8,7 @@
 <link href="css/main.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/weather.css" rel="stylesheet" type="text/css" media="screen">
 <link href="css/deals.css" rel="stylesheet" type="text/css" media="screen">
-<link href="css/coke.css" rel="stylesheet" type="text/css" media="screen">
-<link href="css/iphone.css" rel="stylesheet" type="text/css" media="screen">
+<link href="css/ads.css" rel="stylesheet" type="text/css" media="screen">
 <script type="text/javascript" src="js/angular.js"></script>
 <script src="http://js.leapmotion.com/0.2.0/leap.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
@@ -28,7 +27,7 @@
 //define the timeout period for the leap;
 	LEAP_TIMEOUT = 500
 	var timerMenu, timerAd;
-	var ads = ['coke', 'iphone'];
+	var ads = ['coke', 'iphone', 'redcross'];
 	var currentAd = 0;
 	
 	function clickedCenter(element) {
@@ -37,6 +36,7 @@
 		var clicked = $(element).attr("id");
 		var ad_id = ads[currentAd];
 		$('#'+ad_id).addClass(ad_id+"-blur").removeClass(ad_id+"-sharp");
+
 		if(clicked == 'weather') {
             $('#weather-panel').clone().addClass('clone').appendTo('.masthead').fadeIn(2500);
 		};
@@ -170,8 +170,15 @@
 
 	<script type="text/ng-template" id="iphone.html">
    <div class="container" ng-mousedown="onMouseDown($event)">
-      <div class="masthead ad iphone-sharp" id="iphone">
+      <div class="masthead iphone-sharp ad" id="iphone">
 		</div>
+   </div>
+  </script>
+
+  <script type="text/ng-template" id="redcross.html">
+   <div class="container" ng-mousedown="onMouseDown($event)">
+      <div class="masthead redcross-sharp ad" id="redcross">
+	  </div>
    </div>
   </script>
 
