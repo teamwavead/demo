@@ -82,6 +82,7 @@
 		//Leap Motion controler
 		var controller = new Leap.Controller({ enableGestures: true});
 		var done = 0;
+		var menuIsUp = 0;
 	    controller.on( 'animationFrame' , function( frame ) {
 	    // Frame code goes here
 	    if(frame.gestures.length >= 1){
@@ -90,16 +91,35 @@
 	            if(frame.gestures[i].type === "swipe"){
 	              text = mouvementSelect(frame.gestures[i].direction[0],"left","right",TRESHOLD);
 				if(text !== "unknown"){
-					currentAd++;
-					var nextAd = ads[currentAd % ads.length];
+					if(menuIsUp === 0){
+						currentAd++;
+						var nextAd = ads[currentAd % ads.length];
 					window.MY_SCOPE.$apply("go('"+nextAd+"','"+text+"')");
 					done += 1;
 					window.setTimeout(function(){done = 0},LEAP_TIMEOUT);
+					}
+					else{
+						back();
+						menuIsUp = 0;
+					}
+
+					
+					
 				}
 				else{
 					text = mouvementSelect(frame.gestures[i].direction[1],"top","down",TRESHOLD);
 					//add here the command to have the top and down command... 
 					console.log(text);
+					if(menuIsUp === 0 && (text === "top" || text === "down")){
+						showMenu(true);
+						done += 1;
+						menuIsUp += 1;
+					}else if(text === "top"){
+						$("#weather").click()
+					}else if(text === "down"){
+						$("#deals").click()
+					}
+					
 
 
 
